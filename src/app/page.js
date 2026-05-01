@@ -131,7 +131,7 @@ export default function Home() {
       />
 
       {/* --- NEW HERO SECTION --- */}
-      <section className="relative z-20 pt-32 pb-24 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-20">
+      <section className="relative z-20 pt-32 pb-24 px-6 max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
