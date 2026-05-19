@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    @apply antialiased bg-base-100 text-base-content min-h-screen relative overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-base-200/80 backdrop-blur-md border border-base-content/10 shadow-sm;
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:bg-base-200 hover:border-accent/40 hover:-translate-y-0.5;
+  }
+
+  .industrial-border {
+    @apply border-2 border-base-content/10;
+  }
+}
+
+@layer utilities {
+  .serif-italic {
+    font-family: 'IBM Plex Mono', serif;
+    font-style: italic;
+  }
+}
+
+:root[data-theme="light"] {
+  --email-bg: #FBBC04;
+  --email-text: #000000;
+  --github-bg: #24292e;
+  --github-text: #FFFFFF;
+}
+
+:root[data-theme="dark"] {
+  --email-bg: #FFFFFF;
+  --email-text: #000000;
+  --github-bg: #FFFFFF;
+  --github-text: #000000;
+}
+
+
