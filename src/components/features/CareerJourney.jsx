@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
-  Briefcase, 
-  GraduationCap, 
-  MapPin, 
+import {
+  Briefcase,
+  GraduationCap,
+  MapPin,
   Calendar,
   X
 } from 'lucide-react';
@@ -10,7 +10,7 @@ import {
 const workData = [
   {
     id: 'indospring',
-    role: 'PPC Lapangan',
+    role: 'PPC Field Apprentice',
     subtitle: 'Production Planning & Control',
     company: 'PT. Indospring Tbk',
     location: 'Gresik, Jawa Timur',
@@ -133,7 +133,7 @@ export default function CareerJourney() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {workData.map((item) => (
-              <div 
+              <div
                 key={item.id}
                 onClick={() => setSelectedJob(item)}
                 className="group bg-base-100 border border-base-300 rounded-2xl p-6 transition-all duration-300 hover:border-accent/30 hover:shadow-md hover:-translate-y-1 flex flex-col items-center text-center gap-4 cursor-pointer"
@@ -202,7 +202,7 @@ export default function CareerJourney() {
                 <X size={20} />
               </button>
             </div>
-            
+
             {/* Modal Body */}
             <div className="p-6 space-y-6">
               <div className="flex flex-wrap items-center gap-4 text-xs text-base-content/50">
@@ -215,7 +215,7 @@ export default function CareerJourney() {
                   {selectedJob.location}
                 </span>
               </div>
-              
+
               <div className="space-y-3">
                 <h4 className="text-sm font-bold uppercase tracking-widest text-base-content/40">Tugas & Tanggung Jawab</h4>
                 <ul className="space-y-2.5">
