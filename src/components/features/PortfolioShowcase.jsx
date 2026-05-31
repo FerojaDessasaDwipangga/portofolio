@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Factory, Code2, FolderOpen, Award, Settings, ClipboardCheck, LineChart } from 'lucide-react';
+import { Factory, Code2, FolderOpen, Award, Settings, ClipboardCheck, LineChart, FileText } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiVite, SiGithub, SiVercel } from 'react-icons/si';
 
 const tabs = [
   { id: 'industrial', label: 'Industrial Operations', icon: Factory, type: 'content' },
   { id: 'techstack', label: 'Tech Stack', icon: Code2, type: 'content' },
+  { id: 'certificates', label: 'Certificates', icon: Award, type: 'content' },
   { id: 'projects', label: 'Projects', icon: FolderOpen, type: 'scroll', target: 'projects' },
-  { id: 'certificates', label: 'Certificates', icon: Award, type: 'scroll', target: 'certificates' },
 ];
 
 const industrialData = [
@@ -26,6 +26,23 @@ const techStackData = [
   { name: 'Vercel', icon: <SiVercel size={48} className="text-base-content" /> },
 ];
 
+const certificatesData = [
+  {
+    title: 'AI Fluency',
+    subtitle: 'Sertifikat pelatihan AI Fluency.',
+    image: '/sertifikat/AI Fluency.png',
+    link: '/sertifikat/AI Fluency.png',
+    type: 'image',
+  },
+  {
+    title: '21K Finisher – Isoplus Half Marathon 2025',
+    subtitle: 'Sertifikat penyelesaian lomba half marathon.',
+    image: '/sertifikat/21K Finisher – Isoplus Half Marathon 2025.jpg',
+    link: '/sertifikat/21K Finisher – Isoplus Half Marathon 2025.jpg',
+    type: 'image',
+  },
+];
+
 export default function PortfolioShowcase() {
   const [activeTab, setActiveTab] = useState('industrial');
 
@@ -38,7 +55,10 @@ export default function PortfolioShowcase() {
     }
   };
 
-  const activeData = activeTab === 'industrial' ? industrialData : techStackData;
+  const activeData =
+    activeTab === 'industrial' ? industrialData
+      : activeTab === 'techstack' ? techStackData
+      : certificatesData;
 
   return (
     <div id="skills" className="w-full max-w-6xl mx-auto space-y-10">
@@ -80,21 +100,53 @@ export default function PortfolioShowcase() {
 
       {/* Content Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {activeData.map((item, index) => (
-          <div
-            key={`${activeTab}-${index}`}
-            className="group flex flex-col items-center justify-center gap-4 p-6 md:p-8 
-              bg-base-100 border border-base-300 rounded-2xl shadow-sm
-              transition-all duration-300 hover:scale-105 hover:shadow-md hover:border-accent/40 cursor-default"
-          >
-            <div className="w-16 h-16 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              {item.icon}
+        {activeData.map((item, index) => {
+          // For certificates, render full image with title
+          if (activeTab === 'certificates') {
+            return (
+              <div
+                key={item.title}
+                className="group flex flex-col gap-3"
+              >
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block aspect-[4/3] overflow-hidden cursor-pointer"
+                  title={item.title}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover rounded-2xl shadow-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-105"
+                  />
+                </a>
+                <div className="px-1">
+                  <p className="text-sm font-semibold text-base-content/80 text-center line-clamp-2">
+                    {item.title}
+                  </p>
+                </div>
+              </div>
+            );
+          }
+
+          // For other tabs, render icon cards
+          return (
+            <div
+              key={`${activeTab}-${index}`}
+              className="group flex flex-col items-center justify-center gap-4 p-6 md:p-8 
+                bg-base-100 border border-base-300 rounded-2xl shadow-sm
+                transition-all duration-300 hover:scale-105 hover:shadow-md hover:border-accent/40 cursor-default"
+            >
+              <div className="w-16 h-16 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                {item.icon}
+              </div>
+              <span className="text-sm font-semibold text-base-content/70 group-hover:text-base-content transition-colors duration-300 text-center">
+                {item.name}
+              </span>
             </div>
-            <span className="text-sm font-semibold text-base-content/70 group-hover:text-base-content transition-colors duration-300 text-center">
-              {item.name}
-            </span>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
     </div>
