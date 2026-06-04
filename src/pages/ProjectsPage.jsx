@@ -1,8 +1,16 @@
 import Timeline from '../components/features/Timeline/Timeline';
-import { ExternalLink, Globe, Monitor, Database, Layout } from 'lucide-react';
+import { ExternalLink, Globe, Monitor, Database, Layout, Award } from 'lucide-react';
 
 export default function ProjectsPage() {
   const projects = [
+    {
+      title: 'Remi League: Automated Tournament System',
+      description: 'Dashboard turnamen lokal dengan antrean prioritas, format kondisional, dan penalti otomatis untuk memastikan persaingan yang adil.',
+      tags: ['Spreadsheet Logic', 'UX/UI', 'Data Automation'],
+      icon: Award,
+      link: '#',
+      github: '#',
+    },
     {
       title: 'Sistem Pelacakan WIP',
       description: 'Aplikasi web komprehensif untuk mengelola Work In Progress di lantai pabrik. Fitur entri real-time dan pelaporan WA otomatis.',
@@ -62,7 +70,7 @@ export default function ProjectsPage() {
             </p>
           </div>
           <div className="text-sm font-mono font-bold opacity-40 uppercase tracking-widest">
-            Total Proyek: 03
+            Total Proyek: 04
           </div>
         </div>
 
@@ -83,7 +91,7 @@ export default function ProjectsPage() {
                     </a>
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="card-title text-2xl font-black tracking-tight group-hover:text-accent transition-colors">
                     {project.title}

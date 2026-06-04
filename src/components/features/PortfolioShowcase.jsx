@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Factory, Code2, FolderOpen, Award, Settings, ClipboardCheck, LineChart, FileText } from 'lucide-react';
+import { Factory, Code2, FolderOpen, Award, Settings, ClipboardCheck, LineChart, FileText, ExternalLink } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiVite, SiGithub, SiVercel } from 'react-icons/si';
 
 const tabs = [
   { id: 'industrial', label: 'Industrial Operations', icon: Factory, type: 'content' },
   { id: 'techstack', label: 'Tech Stack', icon: Code2, type: 'content' },
+  { id: 'projects', label: 'Projects', icon: FolderOpen, type: 'content' },
   { id: 'certificates', label: 'Certificates', icon: Award, type: 'content' },
-  { id: 'projects', label: 'Projects', icon: FolderOpen, type: 'scroll', target: 'projects' },
 ];
 
 const industrialData = [
@@ -43,8 +43,23 @@ const certificatesData = [
   },
 ];
 
+const projectsData = [
+  {
+    title: 'Remi League: Automated Tournament System',
+    subtitle: 'Automated tournament queue management for local remi competitions.',
+    detailText: 'Dashboard berbasis data untuk mengelola klasemen turnamen lokal dan mengotomatisasi antrean pemain. Sistem ini memprioritaskan pemain dengan jumlah main rendah, mendeteksi perilaku avoiding match, dan memberikan penalti WO otomatis agar kompetisi tetap adil dan transparan.',
+    badges: ['System Analyst', 'Google Sheets', 'Data Logic'],
+    tags: ['Spreadsheet Logic', 'UX/UI', 'Data Automation'],
+    image: '/project/tampilan klasemen live (utama).png',
+    link: '#',
+    github: '#',
+  },
+];
+
 export default function PortfolioShowcase() {
   const [activeTab, setActiveTab] = useState('industrial');
+  const [detailItem, setDetailItem] = useState(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const handleTabClick = (tab) => {
     if (tab.type === 'scroll') {
@@ -58,7 +73,8 @@ export default function PortfolioShowcase() {
   const activeData =
     activeTab === 'industrial' ? industrialData
       : activeTab === 'techstack' ? techStackData
-      : certificatesData;
+        : activeTab === 'projects' ? projectsData
+          : certificatesData;
 
   return (
     <div id="skills" className="w-full max-w-6xl mx-auto space-y-10">
@@ -99,9 +115,8 @@ export default function PortfolioShowcase() {
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
         {activeData.map((item, index) => {
-          // For certificates, render full image with title
           if (activeTab === 'certificates') {
             return (
               <div
@@ -130,7 +145,42 @@ export default function PortfolioShowcase() {
             );
           }
 
-          // For other tabs, render icon cards
+          if (activeTab === 'projects') {
+            return (
+              <div
+                key={item.title}
+                className="group flex flex-col items-center justify-center gap-4 p-4 bg-base-100 border border-base-300 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer"
+              >
+                <button
+                  onClick={() => { setDetailItem(item); setIsDetailOpen(true); }}
+                  className="w-full overflow-hidden rounded-3xl bg-base-200"
+                >
+                  <img src={item.image} alt={item.title} className="w-full h-36 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </button>
+                <div className="w-full text-center">
+                  <h4 className="text-sm font-black text-base-content line-clamp-2">{item.title}</h4>
+                  <div className="mt-2 flex flex-wrap justify-center gap-2">
+                    {item.badges?.map((badge, badgeIndex) => (
+                      <span
+                        key={badgeIndex}
+                        className="badge badge-outline badge-sm border-base-content/20 text-[10px] font-semibold uppercase tracking-[0.18em] text-base-content/70"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-[11px] text-base-content/60 mt-3 line-clamp-2">{item.subtitle}</p>
+                </div>
+                <button
+                  onClick={() => { setDetailItem(item); setIsDetailOpen(true); }}
+                  className="btn btn-sm btn-accent"
+                >
+                  Lihat Detail
+                </button>
+              </div>
+            );
+          }
+
           return (
             <div
               key={`${activeTab}-${index}`}
@@ -148,6 +198,29 @@ export default function PortfolioShowcase() {
           );
         })}
       </div>
+
+      {isDetailOpen && detailItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setIsDetailOpen(false)} />
+          <div className="relative max-w-4xl w-full bg-base-100 rounded-2xl shadow-xl overflow-hidden">
+            <div className="p-6">
+              <div className="mb-4">
+                <h3 className="text-2xl font-black">{detailItem.title}</h3>
+                <p className="text-sm text-base-content/70 mt-2">{detailItem.subtitle}</p>
+              </div>
+              <div className="aspect-[16/9] overflow-hidden rounded-lg">
+                <img src={detailItem.image} alt={detailItem.title} className="w-full h-full object-contain" />
+              </div>
+              <div className="mt-4 rounded-2xl border border-base-300 bg-base-200 p-4 text-sm text-base-content/80">
+                {detailItem.detailText}
+              </div>
+              <div className="mt-4 flex justify-end">
+                <button onClick={() => setIsDetailOpen(false)} className="btn btn-primary">Tutup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
