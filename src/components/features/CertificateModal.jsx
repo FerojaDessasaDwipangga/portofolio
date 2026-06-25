@@ -3,17 +3,36 @@ import { Download, ExternalLink, FileText, ImageIcon, Award } from 'lucide-react
 
 const certificates = [
   {
-    title: '21K Finisher – Isoplus Half Marathon 2025',
-    file: '/sertifikat/21K Finisher – Isoplus Half Marathon 2025.pdf',
-    type: 'pdf',
-    description: 'Sertifikat penyelesaian acara lari half marathon.',
-  },
-  {
     title: 'AI Fluency',
     file: '/sertifikat/AI Fluency.png',
     type: 'image',
     description: 'Sertifikat pelatihan AI Fluency.',
   },
+  {
+    title: '21K Finisher – Isoplus Half Marathon 2025',
+    file: '/sertifikat/21K Finisher – Isoplus Half Marathon 2025.jpg',
+    type: 'image',
+    description: 'Sertifikat penyelesaian acara lari half marathon.',
+  },
+  {
+    title: 'Kelas Persiapan Kerja',
+    file: '/sertifikat/Kelas Persiapan Kerja.by sekolahmu.pdf',
+    type: 'pdf',
+    description: 'Sertifikat persiapan kerja dari Sekolahmu.',
+  },
+  {
+    title: 'Mini Course Digital Marketing',
+    file: '/sertifikat/Mini Course Digital Marketing.by sekolahmu.pdf',
+    type: 'pdf',
+    description: 'Sertifikat mini course digital marketing dari Sekolahmu.',
+  },
+  {
+    title: 'Praktek Kerja Industri',
+    file: '/sertifikat/Sertifikat praktek kerja Industri.pdf',
+    type: 'pdf',
+    description: 'Sertifikat praktik kerja industri.',
+  },
+  
 ];
 
 const renderIcon = (type) => {

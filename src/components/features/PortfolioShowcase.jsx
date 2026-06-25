@@ -41,6 +41,32 @@ const certificatesData = [
     link: '/sertifikat/21K Finisher – Isoplus Half Marathon 2025.jpg',
     type: 'image',
   },
+  {
+    title: 'Kelas Persiapan Kerja',
+    subtitle: 'Sertifikat persiapan kerja dari Sekolahmu.',
+    image: '/sertifikat/Kelas Persiapan Kerja.by sekolahmu_page-0001.jpg',
+    link: '/sertifikat/Kelas Persiapan Kerja.by sekolahmu_page-0001.jpg',
+    type: 'image',
+  },
+  {
+    title: 'Mini Course Digital Marketing',
+    subtitle: 'Sertifikat mini course digital marketing dari Sekolahmu.',
+    images: [
+      '/sertifikat/Mini-Course-Digital-Marketing.by-sekolahmu/Mini Course Digital Marketing.by sekolahmu_page-0001.jpg',
+      '/sertifikat/Mini-Course-Digital-Marketing.by-sekolahmu/Mini Course Digital Marketing.by sekolahmu_page-0002.jpg',
+    ],
+    type: 'image',
+  },
+  {
+    title: 'Praktek Kerja Industri',
+    subtitle: 'Sertifikat praktik kerja industri.',
+    images: [
+      '/sertifikat/Sertifikat-praktek-kerja-Industri/Sertifikat praktek kerja Industri_page-0001.jpg',
+      '/sertifikat/Sertifikat-praktek-kerja-Industri/Sertifikat praktek kerja Industri_page-0002.jpg',
+    ],
+    type: 'image',
+  },
+  
 ];
 
 const projectsData = [
@@ -59,6 +85,7 @@ const projectsData = [
 export default function PortfolioShowcase() {
   const [activeTab, setActiveTab] = useState('industrial');
   const [detailItem, setDetailItem] = useState(null);
+  const [mainImage, setMainImage] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const handleTabClick = (tab) => {
@@ -119,29 +146,52 @@ export default function PortfolioShowcase() {
         {activeData.map((item, index) => {
           if (activeTab === 'certificates') {
             return (
-              <div
+              <button
                 key={item.title}
-                className="group flex flex-col gap-3"
+                onClick={() => {
+                  setDetailItem(item);
+                  if (item.images && item.images.length > 0) setMainImage(item.images[0]);
+                  else setMainImage(item.image || item.link || null);
+                  setIsDetailOpen(true);
+                }}
+                className="group flex flex-col gap-3 overflow-hidden rounded-3xl border border-base-300 bg-base-100 transition duration-300 hover:shadow-lg"
+                type="button"
+                title={`Buka sertifikat ${item.title}`}
               >
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block aspect-[4/3] overflow-hidden cursor-pointer"
-                  title={item.title}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover rounded-2xl shadow-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-105"
-                  />
-                </a>
-                <div className="px-1">
-                  <p className="text-sm font-semibold text-base-content/80 text-center line-clamp-2">
-                    {item.title}
-                  </p>
+                {item.type === 'image' || (item.images && item.images.length > 0) ? (
+                  <div className="overflow-hidden rounded-t-3xl">
+                    <img
+                      src={item.image || (item.images && item.images[0])}
+                      alt={item.title}
+                      className="w-full h-48 object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative h-48 overflow-hidden rounded-t-3xl border-b border-base-300 bg-gradient-to-br from-base-200 via-base-100 to-base-200 px-6 py-5 text-left">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.12),_transparent_35%)]" />
+                    <div className="relative flex h-full flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+                          PDF
+                        </span>
+                        <FileText size={28} className="text-accent" />
+                      </div>
+                      <div className="space-y-3">
+                        <h3 className="text-base font-black text-base-content">{item.title}</h3>
+                        <div className="space-y-2">
+                          <div className="h-2 w-28 rounded-full bg-base-300/80" />
+                          <div className="h-2 w-32 rounded-full bg-base-300/70" />
+                          <div className="h-2 w-20 rounded-full bg-base-300/70" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="px-4 pb-4 pt-3 text-center">
+                  <p className="text-sm font-black text-base-content line-clamp-2">{item.title}</p>
+                  <p className="mt-1 text-xs text-base-content/60 line-clamp-2">{item.subtitle}</p>
                 </div>
-              </div>
+              </button>
             );
           }
 
@@ -204,18 +254,68 @@ export default function PortfolioShowcase() {
           <div className="absolute inset-0 bg-black/60" onClick={() => setIsDetailOpen(false)} />
           <div className="relative max-w-4xl w-full bg-base-100 rounded-2xl shadow-xl overflow-hidden">
             <div className="p-6">
-              <div className="mb-4">
-                <h3 className="text-2xl font-black">{detailItem.title}</h3>
-                <p className="text-sm text-base-content/70 mt-2">{detailItem.subtitle}</p>
+              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 className="text-2xl font-black">{detailItem.title}</h3>
+                  {detailItem.subtitle && <p className="text-sm text-base-content/70 mt-2">{detailItem.subtitle}</p>}
+                </div>
+                <button onClick={() => setIsDetailOpen(false)} className="btn btn-sm btn-ghost">Tutup</button>
               </div>
-              <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                <img src={detailItem.image} alt={detailItem.title} className="w-full h-full object-contain" />
+
+              <div className="overflow-hidden rounded-3xl border border-base-300 bg-base-200">
+                {detailItem.images && detailItem.images.length > 0 ? (
+                  <div>
+                    <img
+                      src={mainImage}
+                      alt={detailItem.title}
+                      className="w-full max-h-[650px] object-contain bg-white"
+                    />
+                    <div className="mt-3 flex gap-3 overflow-x-auto px-3 pb-3">
+                      {detailItem.images.map((imgSrc, idx) => (
+                        <button
+                          key={imgSrc}
+                          onClick={() => setMainImage(imgSrc)}
+                          className={`flex-shrink-0 h-20 w-28 overflow-hidden rounded-lg border ${mainImage === imgSrc ? 'border-accent' : 'border-base-300'} bg-white`}
+                          type="button"
+                          title={`Lihat halaman ${idx + 1}`}
+                        >
+                          <img src={imgSrc} alt={`${detailItem.title} - ${idx + 1}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : detailItem.type === 'image' ? (
+                  <img
+                    src={detailItem.image}
+                    alt={detailItem.title}
+                    className="w-full max-h-[650px] object-contain"
+                  />
+                ) : (
+                  <iframe
+                    src={detailItem.link}
+                    title={detailItem.title}
+                    className="w-full min-h-[560px]"
+                  >
+                    <div className="p-6 text-center text-base-content/70">
+                      Tidak dapat menampilkan PDF. Silakan unduh untuk melihat.
+                    </div>
+                  </iframe>
+                )}
               </div>
-              <div className="mt-4 rounded-2xl border border-base-300 bg-base-200 p-4 text-sm text-base-content/80">
-                {detailItem.detailText}
-              </div>
-              <div className="mt-4 flex justify-end">
-                <button onClick={() => setIsDetailOpen(false)} className="btn btn-primary">Tutup</button>
+
+              {detailItem.detailText && (
+                <div className="mt-4 rounded-2xl border border-base-300 bg-base-200 p-4 text-sm text-base-content/80">
+                  {detailItem.detailText}
+                </div>
+              )}
+
+              <div className="mt-4 flex flex-wrap items-center justify-end gap-3">
+                <a href={detailItem.images && mainImage ? mainImage : detailItem.image ? detailItem.image : detailItem.link} download className="btn btn-accent btn-sm gap-2">
+                  <FileText size={16} /> Unduh
+                </a>
+                <button onClick={() => setIsDetailOpen(false)} className="btn btn-ghost btn-sm">
+                  Tutup
+                </button>
               </div>
             </div>
           </div>
